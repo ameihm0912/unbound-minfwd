@@ -1,0 +1,13 @@
+name: main branch action
+
+on: push
+  branches:
+    - main
+
+jobs:
+  build-push-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build -t unbound-minfwd:latest .
