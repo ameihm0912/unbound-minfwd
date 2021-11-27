@@ -1,5 +1,7 @@
 # unbound-minfwd
 
+`docker pull ameihm0912/unbound-minfwd:latest`
+
 This repository contains files to build a minimal docker image that can be used to run
 unbound as a forwarding resolver. The configuration is fairly simple and contains just what
 is needed for standard DNS and DNS over TLS based forwarding.
