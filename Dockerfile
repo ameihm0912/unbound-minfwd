@@ -15,10 +15,14 @@ RUN curl -OL https://nlnetlabs.nl/downloads/unbound/unbound-1.13.2.tar.gz && \
 	./configure --with-libexpat=/usr --with-libevent --with-ssl && \
 	make && make install
 
+COPY src/unbound-harness /root/unbound-harness
+RUN cd unbound-harness && make clean && make
+
 FROM base AS final
 COPY --from=builder /usr/local/sbin/unbound /usr/local/sbin/unbound
 COPY --from=builder /usr/local/sbin/unbound-anchor /usr/local/sbin/unbound-anchor
 COPY --from=builder /usr/local/lib/libunbound.so.8.1.13 /usr/local/lib/libunbound.so.8.1.13
+COPY --from=builder /root/unbound-harness/unbound-harness /usr/local/sbin/unbound-harness
 RUN mkdir -p /usr/local/etc/unbound/unbound.conf.d \
 	/var/lib/unbound && \
 	useradd -s /usr/sbin/nologin unbound && \

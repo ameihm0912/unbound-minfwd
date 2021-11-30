@@ -22,7 +22,7 @@ fi
 /usr/local/sbin/unbound-anchor -a /var/lib/unbound/root.key -4 || true
 
 if [[ -z "$@" ]]; then
-	/usr/local/sbin/unbound
+	exec /usr/local/sbin/unbound-harness
 else
 	exec "$@"
 fi
