@@ -3,6 +3,9 @@ all:
 docker:
 	docker build -t unbound-minfwd:latest .
 
+docker-builder:
+	docker build --target builder -t unbound-minfwd:builder .
+
 # Test with Google public DNS resolvers
 run-local-gdns:
 	docker run -ti --rm \
@@ -20,4 +23,4 @@ run-local-cdns:
 		-e FORWARD_ADDRS='1.1.1.1@853#cloudflare-dns.com 1.0.0.1@853#cloudflare-dns.com' \
 		unbound-minfwd:latest
 
-.PHONY: docker run-local-gdns run-local-cdns
+.PHONY: docker docker-builder run-local-gdns run-local-cdns
