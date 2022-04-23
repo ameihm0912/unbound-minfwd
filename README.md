@@ -41,3 +41,7 @@ into the unbound configuration as `forward-addr` options.
 #### FORWARD_TLS
 
 Set this environment variable to enable TLS upstream forwarding if DNS over TLS is desired.
+
+#### DROP_ZONES
+
+Space delimited list of DNS zones. If set, any queries for these zones will be refused.

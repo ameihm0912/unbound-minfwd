@@ -3,6 +3,7 @@
 set -e
 
 fwd_cfg_path=/usr/local/etc/unbound/unbound.conf.d/forward.conf
+drop_cfg_path=/usr/local/etc/unbound/unbound.conf.d/drop.conf
 
 # Do any additional configuration here before we start the process.
 
@@ -16,6 +17,13 @@ fi
 if [[ ! -z "$FORWARD_ADDRS" ]]; then
 	for i in $FORWARD_ADDRS; do
 		echo "    forward-addr: $i" >> $fwd_cfg_path
+	done
+fi
+
+# Configure any zones we want to drop queries for.
+if [[ ! -z "$DROP_ZONES" ]]; then
+	for i in $DROP_ZONES; do
+		echo "    local-zone: \"$i\" refuse" >> $drop_cfg_path
 	done
 fi
 
