@@ -23,6 +23,7 @@ run-local-cdns:
 		-p 5300:5300/udp \
 		-e FORWARD_TLS=1 \
 		-e FORWARD_ADDRS='1.1.1.1@853#cloudflare-dns.com 1.0.0.1@853#cloudflare-dns.com' \
+		-e TCP_REUSE_TIMEOUT=7500 \
 		unbound-minfwd:latest
 
 .PHONY: docker docker-builder run-local-gdns run-local-cdns

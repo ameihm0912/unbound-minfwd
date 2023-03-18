@@ -4,6 +4,7 @@ set -e
 
 fwd_cfg_path=/usr/local/etc/unbound/unbound.conf.d/forward.conf
 drop_cfg_path=/usr/local/etc/unbound/unbound.conf.d/drop.conf
+server_cfg_path=/usr/local/etc/unbound/unbound.conf.d/server.conf
 
 # Do any additional configuration here before we start the process.
 
@@ -25,6 +26,12 @@ if [[ ! -z "$DROP_ZONES" ]]; then
 	for i in $DROP_ZONES; do
 		echo "    local-zone: \"$i\" refuse" >> $drop_cfg_path
 	done
+fi
+
+# Set tcp-reuse-timeout if specified.
+if [[ ! -z "$TCP_REUSE_TIMEOUT" ]]; then
+	echo "    tcp-reuse-timeout: $TCP_REUSE_TIMEOUT" >> $server_cfg_path
+	cat $server_cfg_path
 fi
 
 /usr/local/sbin/unbound-anchor -a /var/lib/unbound/root.key -4 || true
