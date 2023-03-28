@@ -24,7 +24,7 @@ fi
 # Configure any zones we want to drop queries for.
 if [[ ! -z "$DROP_ZONES" ]]; then
 	for i in $DROP_ZONES; do
-		echo "    local-zone: \"$i\" refuse" >> $drop_cfg_path
+		echo "    local-zone: \"$i\" static" >> $drop_cfg_path
 	done
 fi
 
