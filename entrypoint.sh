@@ -34,6 +34,14 @@ if [[ ! -z "$TCP_REUSE_TIMEOUT" ]]; then
 	cat $server_cfg_path
 fi
 
+if [[ ! -z "$DO_IP6" ]]; then
+	echo "    do-ip6: yes" >> $server_cfg_path
+	echo "    access-control: 2001:db8::/64 allow" >> $server_cfg_path
+	echo "    interface: ::0@5300" >> $server_cfg_path
+else
+	echo "    do-ip6: no" >> $server_cfg_path
+fi
+
 /usr/local/sbin/unbound-anchor -a /var/lib/unbound/root.key -4 || true
 
 if [[ -z "$@" ]]; then
